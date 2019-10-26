@@ -5,7 +5,7 @@ import (
         "html"
         "log"
         "net/http"
-	execPing "github.com/HarleyWaagmeester/server/execPing"
+	"github.com/HarleyWaagmeester/execPing"
 )
 
 func main() {
