@@ -1,0 +1,6 @@
+Build sequence:
+
+go get
+
+go build
+
