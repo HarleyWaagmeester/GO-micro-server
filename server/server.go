@@ -3,8 +3,8 @@ package main
 // Simple webserver running system utilities. And more.
 import (
 	"fmt"
-	//	"github.com/HarleyWaagmeester/execPing"
-	"execPing"
+	"github.com/HarleyWaagmeester/execPing"
+	//	"execPing" //development version
 	"html"
 	"log"
 	"net/http"
