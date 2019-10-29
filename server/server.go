@@ -1,34 +1,36 @@
 package main
+
 // Simple webserver running system utilities. And more.
 import (
-        "fmt"
-        "html"
-        "log"
-        "net/http"
-	"github.com/HarleyWaagmeester/execPing"
+	"fmt"
+	//	"github.com/HarleyWaagmeester/execPing"
+	"execPing"
+	"html"
+	"log"
+	"net/http"
 )
 
 func main() {
 
-
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-                fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
-        })
+		fmt.Fprintf(w, "%q", html.EscapeString(r.URL.Path))
+	})
 
-        http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request){
-                fmt.Fprintf(w, "Hi")
-        })
-        http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request){
+	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "echo...")
+	})
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		flusher, ok := w.(http.Flusher)
 		if !ok {
-		 	http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
-		 	return
+			http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
+			return
 		}
 		w.Header().Set("Content-Type", "text/html")
 		flusher.Flush()
-		execPing.Ping(w);
-        })
+		name, _ := execPing.Ping(w)
+		println(name)
+	})
 
-        log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 
 } //main
